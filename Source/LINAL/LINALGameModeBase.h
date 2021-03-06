@@ -13,5 +13,6 @@ UCLASS()
 class LINAL_API ALINALGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+
 };
