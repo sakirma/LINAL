@@ -1,18 +1,13 @@
 #pragma once
 
-#include "CoreMinimal.h"
-
 #include "FSVector3.h"
 
-#include "FSMatrix.generated.h"
 
 /**
 * 
 */
-USTRUCT()
 struct FSMatrix
 {
-	GENERATED_BODY()
 
 
 public:
@@ -20,6 +15,14 @@ public:
 
 	FORCEINLINE FSMatrix();
 	
-	FORCEINLINE FSMatrix::FSMatrix(const FSVector3& X, const FSVector3& Y, const FSVector3& Z, const FSVector3& W);
+	FORCEINLINE FSMatrix(const FSVector3& X, const FSVector3& Y, const FSVector3& Z, const FSVector3& W);
 };
 
+FORCEINLINE FSMatrix::FSMatrix()
+{
+}
+
+FORCEINLINE FSMatrix::FSMatrix(const FSVector3& X, const FSVector3& Y, const FSVector3& Z, const FSVector3& W)
+{
+	FSVector3 v = FSVector3(1,1,1);
+}

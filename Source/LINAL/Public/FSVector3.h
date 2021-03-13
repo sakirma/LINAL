@@ -2,16 +2,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "FSVector3.generated.h"
 
-/**
- * 
- */
-USTRUCT()
 struct FSVector3
 {
-	GENERATED_BODY()
 
 public:
 	float X, Y, Z;
