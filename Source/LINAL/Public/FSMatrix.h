@@ -16,23 +16,9 @@ public:
 	FORCEINLINE FSMatrix(const FSVector3& X, const FSVector3& Y, const FSVector3& Z, const FSVector3& W);
 
 	FORCEINLINE FSMatrix operator*(const FSMatrix& ROther) const;
-
-	FSMatrix operator*(const float& Scalar) const
-	{
-		FSMatrix Result;
-		auto& NewMatrix = Result.Matrix;
-		const auto& LMtr = Matrix;
-
-		for (int x = 0; x < 4; x++)
-		{
-			for (int y = 0; y < 4; y++)
-			{
-				NewMatrix[x][y] = LMtr[x][y] * Scalar;
-			}
-		}
-
-		return Result;
-	}
+	FORCEINLINE void operator*=(const FSMatrix& ROther);
+	FORCEINLINE FSMatrix operator*(const float& Scalar) const;
+	FORCEINLINE void operator*=(const float& Scalar);
 };
 
 #include "FSMatrix.inl"

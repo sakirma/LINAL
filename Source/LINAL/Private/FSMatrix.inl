@@ -56,3 +56,29 @@ FORCEINLINE FSMatrix FSMatrix::operator*(const FSMatrix& ROther) const
 }
 
 
+FORCEINLINE void FSMatrix::operator*=(const FSMatrix& ROther)
+{
+	*this = *this * ROther;
+}
+
+FORCEINLINE FSMatrix FSMatrix::operator*(const float& Scalar) const
+{
+	FSMatrix Result;
+	auto& NewMatrix = Result.Matrix;
+	const auto& LMtr = Matrix;
+
+	for (int x = 0; x < 4; x++)
+	{
+		for (int y = 0; y < 4; y++)
+		{
+			NewMatrix[x][y] = LMtr[x][y] * Scalar;
+		}
+	}
+
+	return Result;
+}
+
+FORCEINLINE void FSMatrix::operator*=(const float& Scalar)
+{
+	*this = *this * Scalar;
+}
