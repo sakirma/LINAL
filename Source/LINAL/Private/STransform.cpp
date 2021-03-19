@@ -3,9 +3,6 @@
 
 #include "STransform.h"
 
-#include <string>
-
-
 #include "FSMatrix.h"
 
 // Sets default values for this component's properties

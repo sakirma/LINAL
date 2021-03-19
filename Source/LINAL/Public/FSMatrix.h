@@ -9,7 +9,11 @@
 struct FSMatrix
 {
 public:
-	float Matrix[4][4];
+	union
+	{
+		float Matrix[4][4];
+		float M[4 * 4];		
+	};
 
 	FORCEINLINE FSMatrix();
 
