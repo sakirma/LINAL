@@ -4,6 +4,7 @@
 #pragma once
 
 #include "FSMatrix.h"
+#include "FSVector4.h"
 
 FORCEINLINE FSMatrix::FSMatrix() : Matrix{}
 {
@@ -81,4 +82,9 @@ FORCEINLINE FSMatrix FSMatrix::operator*(const float& Scalar) const
 FORCEINLINE void FSMatrix::operator*=(const float& Scalar)
 {
 	*this = *this * Scalar;
+}
+
+FORCEINLINE FSMatrix FSMatrix::Transform(const FSVector4& Vector)
+{
+	
 }

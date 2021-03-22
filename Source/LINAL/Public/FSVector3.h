@@ -20,11 +20,6 @@ public:
 	
 	FORCEINLINE FSVector3 operator*(const FSVector3& V) const;
 	
-	
-	FORCEINLINE FSVector3 operator-(const float& F) const;
-	
-	FORCEINLINE FSVector3 operator+(const float& F) const;
-	
 	FORCEINLINE FSVector3 operator*(const float& Scale) const;
 
 public:

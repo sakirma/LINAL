@@ -1,18 +1,16 @@
 #pragma once
 
 
-#include "FSVector3.h"
+struct FSVector3;
+struct FSVector4;
 
-/**
-* 
-*/
 struct FSMatrix
 {
 public:
 	union
 	{
 		float Matrix[4][4];
-		float M[4 * 4];		
+		float M[4 * 4];
 	};
 
 	FORCEINLINE FSMatrix();
@@ -23,6 +21,8 @@ public:
 	FORCEINLINE void operator*=(const FSMatrix& ROther);
 	FORCEINLINE FSMatrix operator*(const float& Scalar) const;
 	FORCEINLINE void operator*=(const float& Scalar);
+
+	FORCEINLINE FSMatrix Transform(const FSVector4& Vector);
 };
 
 #include "FSMatrix.inl"

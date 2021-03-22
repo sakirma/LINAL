@@ -25,16 +25,6 @@ inline FSVector3 FSVector3::operator*(const FSVector3& V) const
 	return FSVector3(X * V.X, Y * V.Y, Z * V.Z);	
 }
 
-inline FSVector3 FSVector3::operator-(const float& F) const
-{
-	return FSVector3(X - F, Y - F, Z - F);
-}
-
-inline FSVector3 FSVector3::operator+(const float& F) const
-{
-	return FSVector3(X + F, Y + F, Z + F);
-}
-
 inline FSVector3 FSVector3::operator*(const float& Scale) const
 {
 	return FSVector3(X * Scale, Y * Scale, Z * Scale);
