@@ -1,11 +1,9 @@
 #pragma once
-#include "FSVector3.h"
 
 
-/**
- * 
- */
-class FSVector4
+struct FSVector3;
+
+struct FSVector4
 {
 public:
 	float X, Y, Z, W;
@@ -25,8 +23,7 @@ public:
 	
 	FORCEINLINE FSVector4 operator*(const float& Scale) const;
 
-	
-	
+	FORCEINLINE FSVector4 operator=(const FSVector3& V3);
 };
 
 #include "FSVector4.inl"

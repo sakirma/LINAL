@@ -20,26 +20,6 @@ USTransform::USTransform()
 void USTransform::BeginPlay()
 {
 	Super::BeginPlay();
-
-	FSMatrix m1 = FSMatrix(
-		FSVector3(2.f,3.f,3.f),
-		FSVector3(3.f,2.f,3.f),
-		FSVector3(3.f,3.f,3.f),
-		FSVector3(2.f,2.f,2.f)
-		);
-
-	FSMatrix m2 = FSMatrix(
-		FSVector3(3.f,3.f,3.f),
-		FSVector3(3.f,3.f,3.f),
-		FSVector3(2.f,2.f,3.f),
-		FSVector3(3.f,3.f,2.f)
-		);
-	
-	FSMatrix rm = m1 * m2;
-
-	FSMatrix scalarM = FSMatrix();
-
-	scalarM = m1 * 2.0f;
 }
 
 
@@ -51,3 +31,40 @@ void USTransform::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	// ...
 }
 
+FSMatrix USTransform::RotateMatrix(const FSVector3& RotationAxis, const FSVector3& Centre, const double& Degrees)
+{
+	const FSMatrix Origin = FSMatrix::Transform(-Centre);
+
+	const FSMatrix M1 = FSMatrix::GetRotationM1(RotationAxis);
+
+	const FSMatrix M2 = FSMatrix::GetRotationM2(RotationAxis);
+
+	const FSMatrix M3 = FSMatrix::GetRotationX(Degrees);
+
+	const FSMatrix M4 = FSMatrix::GetRotationM4(RotationAxis);
+
+	const FSMatrix M5 = FSMatrix::GetRotationM5(RotationAxis);
+
+	const FSMatrix Back = FSMatrix::Transform(Centre);
+
+	FSMatrix Result = M1 * Origin;
+	Result = M2 * Result; 
+	Result = M3 * Result; 
+	Result = M4 * Result; 
+	Result = M5 * Result; 
+	Result = Back * Result;
+
+	return Result;
+}
+
+FSVector3 USTransform::Centre(const std::vector<FSVector3> Array)
+{
+	FSVector3 Result;
+	for (auto &Vector : Array)
+	{
+		Result += Vector;
+	}
+	Result /= Array.size();
+
+	return Result;
+}

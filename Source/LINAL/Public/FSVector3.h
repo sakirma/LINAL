@@ -1,11 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
+#include <vector>
 
+
+struct FSVector4;
 
 struct FSVector3
 {
-
 public:
 	float X, Y, Z;
 
@@ -15,12 +15,23 @@ public:
 
 public:
 	FORCEINLINE FSVector3 operator+(const FSVector3& V) const;
-	
+
 	FORCEINLINE FSVector3 operator-(const FSVector3& V) const;
-	
+
+	FORCEINLINE FSVector3 operator-() const;
+
 	FORCEINLINE FSVector3 operator*(const FSVector3& V) const;
-	
-	FORCEINLINE FSVector3 operator*(const float& Scale) const;
+
+	FORCEINLINE FSVector3 operator*(const float& Scalar) const;
+
+	FORCEINLINE FSVector3 operator=(const FSVector4& V);
+
+	FORCEINLINE bool       operator==(const FSVector3& SVector3) const;
+	FORCEINLINE FSVector3 operator+=(const FSVector3& Value);
+
+	FORCEINLINE FSVector3 operator/(float Division) const;
+	FORCEINLINE FSVector3 operator/=(float Division);
+
 
 public:
 	static const FSVector3 Zero;

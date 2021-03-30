@@ -3,16 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include <vector>
+
+struct FSMatrix;
+struct FSVector3;
+
+
 #include "Components/ActorComponent.h"
 #include "STransform.generated.h"
 
-
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class LINAL_API USTransform : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	USTransform();
 
@@ -20,9 +26,14 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
+	                           FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+
+private:
+	static FSMatrix RotateMatrix(const FSVector3& RotationAxis, const FSVector3& Centre, const double& Degrees);
+
+	static FSVector3 Centre(const std::vector<FSVector3> Array);
 };
