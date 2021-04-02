@@ -1,7 +1,9 @@
 #include "Tests/FLinalUnitTest.h"
 
-#include "FSMatrix.h"
 #include <math.h>
+
+#include "MAth/FSMatrix.h"
+#include "STransform.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest1, "LINAL.Matrix Empty Matrix",
@@ -203,12 +205,24 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest8, "LINAL.Matrix Centrum Matrix",
 
 bool FLinalTest8::RunTest(const FString& Parameters)
 {
-	FSVector3 Square[] = {
+	const std::vector<FSVector3> Square = {
 		{2, 2, 0},
 		{5, 2, 0},
 		{2, 5, 0},
 		{5, 5, 0}
 	};
+
+	return USTransform::Centre(Square) == FSVector3(3.5f, 3.5f, 0.0f);
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest9, "LINAL.Matrix Calculation Rotation",
+                                 EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+
+bool FLinalTest9::RunTest(const FString& Parameters)
+{
+	
+	
+	return false;
 }
 
 #endif //WITH_DEV_AUTOMATION_TESTS
