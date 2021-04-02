@@ -28,12 +28,8 @@ protected:
 
 public:
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
+	virtual void TickComponent(float                        DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
-
-
-private:
-	static FSMatrix RotateMatrix(const FSVector3& RotationAxis, const FSVector3& Centre, const double& Degrees);
-
 	static FSVector3 Centre(const std::vector<FSVector3> Array);
+	static FSMatrix  RotateMatrix(const FSVector3& RotationAxis, const FSVector3& Centre, const double& Degrees);
 };
