@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <string>
 
 
 struct FSVector4;
@@ -24,19 +24,33 @@ public:
 
 	FORCEINLINE FSVector3 operator*(const float& Scalar) const;
 
+	FORCEINLINE FSVector3 operator=(const FSVector3& V);
+	
 	FORCEINLINE FSVector3 operator=(const FSVector4& V);
 
-	FORCEINLINE bool       operator==(const FSVector3& SVector3) const;
+	FORCEINLINE bool      operator==(const FSVector3& SVector3) const;
 	FORCEINLINE FSVector3 operator+=(const FSVector3& Value);
 
-	FORCEINLINE FSVector3 operator/(float Division) const;
-	FORCEINLINE FSVector3 operator/=(float Division);
+	FORCEINLINE FSVector3 operator/(const float& Division) const;
+	FORCEINLINE FSVector3 operator/=(const float& Division);
 
+	FORCEINLINE FVector   ToFVector() const;
+	FORCEINLINE FSVector3 ToUEAxis() const;
 
-	FORCEINLINE FVector ToFVector() const;
+	FORCEINLINE void        Normalize();
+	FORCEINLINE bool        operator!=(const FSVector3& SVector3) const;
+	FORCEINLINE std::string ToString() const;
+
+	FORCEINLINE static FSVector3 FromFVector(const FVector& V);
+
+	FORCEINLINE static float DotProduct(const FSVector3& L, const FSVector3& R);
+
+	FORCEINLINE static FSVector3 CrossProduct(const FSVector3& L, const FSVector3& R);
 
 public:
 	static const FSVector3 Zero;
+
+	static const FSVector3 One;
 
 	static const FSVector3 Up;
 

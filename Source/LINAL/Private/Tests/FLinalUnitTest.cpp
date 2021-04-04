@@ -90,12 +90,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest4, "LINAL.Matrix Scaling",
 
 bool FLinalTest4::RunTest(const FString& Parameters)
 {
-	FSMatrix M1 = {
-		FSVector4(1, 0, 0, 0),
-		FSVector4(0, 2, 0, 0),
-		FSVector4(0, 0, 1, 0),
-		FSVector4(0, 0, 0, 1),
-	};
+	FSMatrix M1 = FSMatrix::Scale(FSVector3(1, 2, 1));
 
 	FSVector3 V{2, 2, 2};
 
@@ -128,30 +123,16 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest6, "LINAL.Matrix Transform Square",
 
 bool FLinalTest6::RunTest(const FString& Parameters)
 {
-	FSVector3 Square[] = {
+	std::vector<FSVector3> Square = {
 		{2, 2, 0},
 		{5, 2, 0},
 		{2, 5, 0},
 		{5, 5, 0}
 	};
 
-	const FSVector3 Center = (Square[0] + Square[1] + Square[2] + Square[3]) * 0.25f;
+	const FSVector3 Scale = FSVector3(2, 2, 1);
 
-	const FSMatrix MCenter = FSMatrix::Transform(-Center);
-
-	const FSMatrix Scale = FSMatrix::Scale(FSVector3(2, 2, 1));
-
-	const FSMatrix MPosition = FSMatrix::Transform(Center);
-
-	//                     [ x ]
-	// (S * T1) * T2 = M * | y |
-	//                     [ z ]
-	const FSMatrix M = MPosition * (Scale * MCenter);
-
-	for (int i = 0; i < 4; i++)
-	{
-		Square[i] = M.TransformVector(Square[i]);
-	}
+	USTransform::TransformVector(Square, USTransform::Center(Square), Scale);
 
 	return Square[0] == FSVector3(0.5f, 0.5f, 0) && Square[1] == FSVector3(6.5f, 0.5f, 0) &&
 		Square[2] == FSVector3(0.5f, 6.5f, 0) && Square[3] == FSVector3(6.5f, 6.5f, 0);
@@ -212,7 +193,7 @@ bool FLinalTest8::RunTest(const FString& Parameters)
 		{5, 5, 0}
 	};
 
-	return USTransform::Centre(Square) == FSVector3(3.5f, 3.5f, 0.0f);
+	return USTransform::Center(Square) == FSVector3(3.5f, 3.5f, 0.0f);
 }
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest9, "LINAL.Matrix Calculation Rotation",
@@ -220,9 +201,57 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest9, "LINAL.Matrix Calculation Rotation
 
 bool FLinalTest9::RunTest(const FString& Parameters)
 {
-	
-	
+	const FSVector3 Center{-10, -10, -5.4545455};
+	FSVector3       Right{0, 1, 0};
+
+	FSVector3 Vertex = FSVector3(0, 0, 0);
+
+	Right.Normalize();
+
+	const auto M = USTransform::RotateMatrix(Right, Center, 180);
+
+	Vertex       = M.TransformVector(Vertex);
+	const int FX = Vertex.Z;
+	if (FX == -10 && Vertex.X == -20)
+	{
+		return true;
+	}
+
 	return false;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest10, "LINAL.Matrix Dot Product",
+                                 EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+
+bool FLinalTest10::RunTest(const FString& Parameters)
+{
+	const FSVector3 V1 = FSVector3::Forward;
+	const FSVector3 V2 = -FSVector3::Forward;
+
+	return FSVector3::DotProduct(V1, V2) == -1;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FLinalTest11, "LINAL.Matrix Cross Product",
+                                 EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+
+bool FLinalTest11::RunTest(const FString& Parameters)
+{
+	FSVector3 V1 = FSVector3::Forward;
+	FSVector3 V2 = FSVector3::Right;
+
+	const auto Up = FSVector3::CrossProduct(V1, V2);
+
+	V1 = FSVector3::Up;
+	V2 = FSVector3::Right;
+
+	const auto Backwards = FSVector3::CrossProduct(V1, V2);
+
+	if (Up != FSVector3::Up || Backwards != -FSVector3::Forward)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 #endif //WITH_DEV_AUTOMATION_TESTS
