@@ -37,7 +37,7 @@ public:
 
 private:
 	FSVector3 Input{};
-	
+
 	FSVector3 CInput{};
 
 	UPROPERTY()
@@ -103,7 +103,9 @@ private:
 	};
 
 private:
-	float FULLTHRUSTERS;
+	float Speed = 100.f;
+
+	void MoveCamera();
 
 	void MoveForward(const float Value);
 	void MoveSide(const float Value);
@@ -113,7 +115,8 @@ private:
 	void TurnXAxis(const float Value);
 	void TurnZAxis(const float Value);
 
-	void FullThrusters(const float Value);
+	void FullThrusters();
+	void FullThrustersReleased();
 
 
 	void CMoveForward(const float Value);

@@ -28,6 +28,9 @@ AMySpaceShip::AMySpaceShip()
 	// Set this pawn to be controlled by the lowest-numbered player
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
+	CUsTransform->CurrentPosition = FSVector3(0, 300, -400);
+	MoveCamera();
+
 	DrawLines();
 }
 
@@ -55,8 +58,7 @@ void AMySpaceShip::Tick(float DeltaTime)
 		FSVector3 Up = UsTransform->Up();
 		Up.Normalize();
 
-		UsTransform->CurrentPosition += (Forward * Input.Z + Right * Input.X + Up * Input.Y) * DeltaTime * 100.f *
-			FULLTHRUSTERS;
+		UsTransform->CurrentPosition += (Forward * Input.Z + Right * Input.X + Up * Input.Y) * DeltaTime * Speed;
 
 
 		USTransform::TransformVector(Vertices,
@@ -75,14 +77,19 @@ void AMySpaceShip::Tick(float DeltaTime)
 			CInput.Y) * DeltaTime * 100.f;
 
 
-		USTransform::TransformVector(CameraPosition,
-		                             CUsTransform->CurrentPosition,
-		                             FSVector3::One);
-
-		const FVector v = CameraPosition[0].ToFVector();
-
-		SetActorLocation(v, false, nullptr, ETeleportType::None);
+		MoveCamera();
 	}
+}
+
+void AMySpaceShip::MoveCamera()
+{
+	USTransform::TransformVector(CameraPosition,
+                             UsTransform->CurrentPosition + CUsTransform->CurrentPosition,
+                             FSVector3::One);
+
+	const FVector v = CameraPosition[0].ToFVector();
+
+	SetActorLocation(v, false, nullptr, ETeleportType::None);
 }
 
 void AMySpaceShip::DrawLines()
@@ -114,7 +121,8 @@ void AMySpaceShip::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis("TurnYAxis", this, &AMySpaceShip::TurnYAxis);
 	PlayerInputComponent->BindAxis("TurnXAxis", this, &AMySpaceShip::TurnXAxis);
 	PlayerInputComponent->BindAxis("TurnZAxis", this, &AMySpaceShip::TurnZAxis);
-	PlayerInputComponent->BindAxis("FULLTHRUSTERS", this, &AMySpaceShip::FullThrusters);
+	PlayerInputComponent->BindAction("FULLTHRUSTERS", IE_Pressed, this, &AMySpaceShip::FullThrusters);
+	PlayerInputComponent->BindAction("FULLTHRUSTERS", IE_Released, this, &AMySpaceShip::FullThrustersReleased);
 
 	PlayerInputComponent->BindAxis("CForwardThrusters", this, &AMySpaceShip::CMoveForward);
 	PlayerInputComponent->BindAxis("CSideThrusters", this, &AMySpaceShip::CMoveSide);
@@ -192,9 +200,14 @@ void AMySpaceShip::TurnZAxis(const float Value)
 	}
 }
 
-void AMySpaceShip::FullThrusters(const float Value)
+void AMySpaceShip::FullThrusters()
 {
-	FULLTHRUSTERS = Value + 1;
+	Speed *= 2;
+}
+
+void AMySpaceShip::FullThrustersReleased()
+{
+	Speed *= 0.5f;
 }
 
 void AMySpaceShip::CMoveForward(const float Value)
