@@ -6,6 +6,7 @@
 #include <vector>
 
 
+#include "MyMissileComponent.h"
 #include "STransform.h"
 #include "Components/LineBatchComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -84,8 +85,8 @@ void AMySpaceShip::Tick(float DeltaTime)
 void AMySpaceShip::MoveCamera()
 {
 	USTransform::TransformVector(CameraPosition,
-                             UsTransform->CurrentPosition + CUsTransform->CurrentPosition,
-                             FSVector3::One);
+	                             UsTransform->CurrentPosition + CUsTransform->CurrentPosition,
+	                             FSVector3::One);
 
 	const FVector v = CameraPosition[0].ToFVector();
 
@@ -114,6 +115,10 @@ void AMySpaceShip::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAction("FULLTHRUSTERS", IE_Pressed, this, &AMySpaceShip::FullThrusters);
+	PlayerInputComponent->BindAction("FULLTHRUSTERS", IE_Released, this, &AMySpaceShip::FullThrustersReleased);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AMySpaceShip::FireRocket);
+
 	PlayerInputComponent->BindAxis("ForwardThrusters", this, &AMySpaceShip::MoveForward);
 	PlayerInputComponent->BindAxis("SideThrusters", this, &AMySpaceShip::MoveSide);
 	PlayerInputComponent->BindAxis("BottomThrusters", this, &AMySpaceShip::MoveUp);
@@ -121,8 +126,6 @@ void AMySpaceShip::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis("TurnYAxis", this, &AMySpaceShip::TurnYAxis);
 	PlayerInputComponent->BindAxis("TurnXAxis", this, &AMySpaceShip::TurnXAxis);
 	PlayerInputComponent->BindAxis("TurnZAxis", this, &AMySpaceShip::TurnZAxis);
-	PlayerInputComponent->BindAction("FULLTHRUSTERS", IE_Pressed, this, &AMySpaceShip::FullThrusters);
-	PlayerInputComponent->BindAction("FULLTHRUSTERS", IE_Released, this, &AMySpaceShip::FullThrustersReleased);
 
 	PlayerInputComponent->BindAxis("CForwardThrusters", this, &AMySpaceShip::CMoveForward);
 	PlayerInputComponent->BindAxis("CSideThrusters", this, &AMySpaceShip::CMoveSide);
@@ -208,6 +211,22 @@ void AMySpaceShip::FullThrusters()
 void AMySpaceShip::FullThrustersReleased()
 {
 	Speed *= 0.5f;
+}
+
+void AMySpaceShip::FireRocket()
+{
+	auto* Actor = GetWorld()->SpawnActor<AActor>(ProjectileClass, UsTransform->CurrentPosition.ToFVector(),
+	                                             GetActorRotation());
+	if (!Actor)
+		return;
+
+	auto* Component = Actor->FindComponentByClass<UMyMissileComponent>();
+	if (!Component)
+		return;
+
+	auto Forward = UsTransform->Forward();
+	Forward.Normalize();
+	Component->Fire(Speed, Forward);
 }
 
 void AMySpaceShip::CMoveForward(const float Value)

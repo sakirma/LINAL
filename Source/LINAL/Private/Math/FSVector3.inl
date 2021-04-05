@@ -69,7 +69,7 @@ FORCEINLINE std::string FSVector3::ToString() const
 
 FORCEINLINE FSVector3 FSVector3::FromFVector(const FVector& V)
 {
-	return FSVector3(V.Z, V.X, V.Y);
+	return FSVector3(V.Y, V.Z, V.X);
 }
 
 FORCEINLINE float FSVector3::DotProduct(const FSVector3& L, const FSVector3& R)

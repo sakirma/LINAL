@@ -35,6 +35,9 @@ public:
 	UPROPERTY()
 	ULineBatchComponent* LineBatchComponent;
 
+	UPROPERTY(EditAnywhere, Category = "Parameters")
+	TSubclassOf<AActor> ProjectileClass;
+	
 private:
 	FSVector3 Input{};
 
@@ -117,6 +120,7 @@ private:
 
 	void FullThrusters();
 	void FullThrustersReleased();
+	void FireRocket();
 
 
 	void CMoveForward(const float Value);
