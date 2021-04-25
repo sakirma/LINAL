@@ -7,6 +7,9 @@
 #include <vector>
 
 #include "Math/FSVector3.h"
+#include "Math/FSVector4.h"
+#include "Math/FSMatrix.h"
+
 #include "FSLine.h"
 
 struct FSMatrix;
@@ -45,7 +48,7 @@ public:
 	FSLine *FsLineForward;
 	FSLine *FsLineRight;
 	
-	FSVector3 Up() const;;
+	FSVector3 Up() const;
 	FSVector3 Right() const;
 	FSVector3 Forward() const;
 };

@@ -2,8 +2,6 @@
 
 #include "Math/FSVector3.h"
 
-
-
 struct FSLine
 {
 public:

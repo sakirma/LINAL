@@ -8,6 +8,7 @@
 #include "STransform.h"
 #include "GameFramework/Pawn.h"
 #include "Math/FSVector3.h"
+#include "Math/FSVector4.h"
 
 #include "MySpaceShip.generated.h"
 

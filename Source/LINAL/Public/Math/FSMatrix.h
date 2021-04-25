@@ -1,8 +1,5 @@
 #pragma once
 
-
-#include <cmath>
-
 struct FSVector3;
 struct FSVector4;
 
@@ -15,33 +12,29 @@ public:
 		float M[4 * 4];
 	};
 
-	inline FSMatrix();
+	FSMatrix();
 
-	inline FSMatrix(const FSVector3& X, const FSVector3& Y, const FSVector3& Z, const FSVector3& W);
-	inline FSMatrix(const FSVector4& X, const FSVector4& Y, const FSVector4& Z, const FSVector4& W);
+	FSMatrix(const FSVector3& X, const FSVector3& Y, const FSVector3& Z, const FSVector3& W);
+	FSMatrix(const FSVector4& X, const FSVector4& Y, const FSVector4& Z, const FSVector4& W);
 
-	inline FSMatrix operator*(const FSMatrix& ROther) const;
-	inline FSMatrix operator*=(const FSMatrix& ROther);
-	inline FSMatrix operator*(const float& Scalar) const;
-	inline FSMatrix operator*=(const float& Scalar);
+	FSMatrix operator*(const FSMatrix& ROther) const;
+	FSMatrix operator*=(const FSMatrix& ROther);
+	FSMatrix operator*(const float& Scalar) const;
+	FSMatrix operator*=(const float& Scalar);
 
+	bool operator==(const FSMatrix& MOther);
 	
-	inline bool operator==(const FSMatrix& MOther);
-	
-	
-	inline FSVector4 TransformVector(const FSVector4& Vector) const;
+	FSVector4 TransformVector(const FSVector4& Vector) const;
 
-	static inline FSMatrix Transform(const FSVector3& Vector);
-	static inline FSMatrix Scale(const FSVector3& Scale);
+	static FSMatrix Transform(const FSVector3& Vector);
+	static FSMatrix Scale(const FSVector3& Scale);
 	
-	static inline FSMatrix GetRotationX(double AngleXDegrees);
-	static inline FSMatrix GetRotationY(double AngleYDegrees);
-	static inline FSMatrix GetRotationZ(double AngleZDegrees);
+	static FSMatrix GetRotationX(double AngleXDegrees);
+	static FSMatrix GetRotationY(double AngleYDegrees);
+	static FSMatrix GetRotationZ(double AngleZDegrees);
 
-	static inline FSMatrix GetRotationM1(const FSVector3& RotationAxis);
-	static inline FSMatrix GetRotationM2(const FSVector3& RotationAxis);
-	static inline FSMatrix GetRotationM4(const FSVector3& RotationAxis);
-	static inline FSMatrix GetRotationM5(const FSVector3& RotationAxis);
+	static FSMatrix GetRotationM1(const FSVector3& RotationAxis);
+	static FSMatrix GetRotationM2(const FSVector3& RotationAxis);
+	static FSMatrix GetRotationM4(const FSVector3& RotationAxis);
+	static FSMatrix GetRotationM5(const FSVector3& RotationAxis);
 };
-
-#include "Math/FSMatrix.inl"

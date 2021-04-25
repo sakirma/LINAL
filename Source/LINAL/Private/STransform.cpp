@@ -4,6 +4,9 @@
 #include "STransform.h"
 
 #include "Math/FSMatrix.h"
+#include "Math/FSVector4.h"
+#include "Math/FSVector3.h"
+
 
 // Sets default values for this component's properties
 USTransform::USTransform()

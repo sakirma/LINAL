@@ -10,7 +10,8 @@
 #include "STransform.h"
 #include "Components/LineBatchComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "MAth/FSMatrix.h"
+#include "Math/FSMatrix.h"
+
 
 // Sets default values
 AMySpaceShip::AMySpaceShip()

@@ -9,43 +9,43 @@ struct FSVector3
 public:
 	float X, Y, Z;
 
-	FORCEINLINE FSVector3();
+	FSVector3();
 
-	FORCEINLINE FSVector3(float X, float Y, float Z);
+	FSVector3(float X, float Y, float Z);
 
 public:
-	FORCEINLINE FSVector3 operator+(const FSVector3& V) const;
+	FSVector3 operator+(const FSVector3& V) const;
 
-	FORCEINLINE FSVector3 operator-(const FSVector3& V) const;
+	FSVector3 operator-(const FSVector3& V) const;
 
-	FORCEINLINE FSVector3 operator-() const;
+	FSVector3 operator-() const;
 
-	FORCEINLINE FSVector3 operator*(const FSVector3& V) const;
+	FSVector3 operator*(const FSVector3& V) const;
 
-	FORCEINLINE FSVector3 operator*(const float& Scalar) const;
+	FSVector3 operator*(const float& Scalar) const;
 
-	FORCEINLINE FSVector3 operator=(const FSVector3& V);
+	FSVector3 operator=(const FSVector3& V);
 	
-	FORCEINLINE FSVector3 operator=(const FSVector4& V);
+	FSVector3 operator=(const FSVector4& V);
 
-	FORCEINLINE bool      operator==(const FSVector3& SVector3) const;
-	FORCEINLINE FSVector3 operator+=(const FSVector3& Value);
+	bool      operator==(const FSVector3& SVector3) const;
+	FSVector3 operator+=(const FSVector3& Value);
 
-	FORCEINLINE FSVector3 operator/(const float& Division) const;
-	FORCEINLINE FSVector3 operator/=(const float& Division);
+	FSVector3 operator/(const float& Division) const;
+	FSVector3 operator/=(const float& Division);
 
-	FORCEINLINE FVector   ToFVector() const;
-	FORCEINLINE FSVector3 ToUEAxis() const;
+	FVector   ToFVector() const;
+	FSVector3 ToUEAxis() const;
 
-	FORCEINLINE void        Normalize();
-	FORCEINLINE bool        operator!=(const FSVector3& SVector3) const;
-	FORCEINLINE std::string ToString() const;
+	void        Normalize();
+	bool        operator!=(const FSVector3& SVector3) const;
+	std::string ToString() const;
 
-	FORCEINLINE static FSVector3 FromFVector(const FVector& V);
+	static FSVector3 FromFVector(const FVector& V);
 
-	FORCEINLINE static float DotProduct(const FSVector3& L, const FSVector3& R);
+	static float DotProduct(const FSVector3& L, const FSVector3& R);
 
-	FORCEINLINE static FSVector3 CrossProduct(const FSVector3& L, const FSVector3& R);
+	static FSVector3 CrossProduct(const FSVector3& L, const FSVector3& R);
 
 public:
 	static const FSVector3 Zero;
@@ -65,5 +65,3 @@ public:
 	static const FSVector3 Backward;
 };
 
-
-#include "Math/FSVector3.inl"
