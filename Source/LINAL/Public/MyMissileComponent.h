@@ -14,6 +14,9 @@ class LINAL_API UMyMissileComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+private:
+	float bullet_speed = 50.f;
+	
 public:
 	// Sets default values for this component's properties
 	UMyMissileComponent();

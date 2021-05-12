@@ -45,7 +45,7 @@ void UMyMissileComponent::TickComponent(float                        DeltaTime, 
 
 void UMyMissileComponent::Fire(float speed, FSVector3 direction)
 {
-	this->Speed     = speed;
+	this->Speed     = speed + bullet_speed;
 	this->Direction = direction;
 
 	STransform->CurrentPosition = Vertices[0] = FSVector3::FromFVector(GetOwner()->GetActorLocation());
